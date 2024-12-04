@@ -1,0 +1,90 @@
+CREATE TABLE "usuarios" (
+    "id" SERIAL PRIMARY KEY,
+    "nome" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "senha" TEXT NOT NULL,
+    "dinheiro" INT NOT NULL
+	);
+	
+	CREATE TABLE "cartas" (
+	    "id" SERIAL PRIMARY KEY,
+	    "nome" TEXT NOT NULL,
+	    "numero" INT NOT NULL,
+	    "ataque" INT NOT NULL,
+	    "defesa" INT NOT NULL,
+	    "local_imagem" TEXT NOT NULL	
+	);
+	
+	CREATE TABLE "decks" (
+	    "id" SERIAL PRIMARY KEY,
+	    "tipo" TEXT NOT NULL,
+		"preco" INTEGER NOT NULL
+	);
+	
+	CREATE TABLE "deck_cartas" (
+	    "id" SERIAL PRIMARY KEY,
+	    "id_decks" INTEGER REFERENCES decks(id),
+	    "id_cartas" INTEGER REFERENCES cartas(id)
+	);
+	
+	CREATE TABLE "deck_usuarios" (
+	    "id" SERIAL PRIMARY KEY,
+	    "id_decks" INTEGER REFERENCES decks(id),
+	    "id_usuarios" INTEGER REFERENCES usuarios(id)
+	);
+	
+	INSERT INTO usuarios (nome, email, senha, dinheiro) VALUES
+	('Ultron', 'ultron@gmail.com', 'ultron', 100);
+	
+	-- Inserindo dados na tabela cartas
+	INSERT INTO cartas (nome, numero, ataque, defesa, local_imagem) VALUES
+	('Carta A', 1, 1500, 1200, 'caminho/para/imagemA.png'),
+	('Carta B', 2, 1700, 1600, 'caminho/para/imagemB.png'),
+	('Carta C', 3, 2000, 1800, 'caminho/para/imagemC.png'),
+	('Carta D', 4, 1700, 1600, 'caminho/para/imagemD.png'),
+	('Carta E', 5, 2000, 1800, 'caminho/para/imagemE.png'),
+	('Carta F', 1, 1500, 1200, 'caminho/para/imagemF.png'),
+	('Carta G', 2, 1700, 1600, 'caminho/para/imagemG.png'),
+	('Carta H', 3, 2000, 1800, 'caminho/para/imagemH.png'),
+	('Carta I', 4, 1700, 1600, 'caminho/para/imagemI.png'),
+	('Carta J', 5, 2000, 1800, 'caminho/para/imagemJ.png');
+
+	INSERT INTO decks (tipo, preco) VALUES
+	('Deck de Monstro', 50),
+	('Deck de Ataque', 10),
+	('Deck de Defesa', 20),
+	('Deck Equilibrado', 20),
+	('Deck de Controle', 10),
+	('Deck de Guerreiro', 10),
+	('Deck de Esqueleto', 20),
+	('Deck Dragão', 30);
+
+	-- Insira associações entre cartas e decks
+	INSERT INTO deck_cartas (id_decks, id_cartas) VALUES
+	(1, 1),  -- Associando a Carta A ao Deck de Ataque
+	(1, 2),  -- Associando a Carta B ao Deck de Ataque
+	(1, 3),  -- Associando a Carta C ao Deck de Defesa
+	(1, 4),  -- Associando a Carta A ao Deck Equilibrado
+	(1, 5),  -- Associando a Carta B ao Deck de Controle
+	(2, 6),  -- Associando a Carta A ao Deck de Ataque
+	(2, 7),  -- Associando a Carta B ao Deck de Ataque
+	(2, 8),  -- Associando a Carta C ao Deck de Defesa
+	(2, 9),  -- Associando a Carta A ao Deck Equilibrado
+	(2, 10);  -- Associando a Carta B ao Deck de Controle
+
+
+	
+	-- Selecionando dados
+	SELECT * FROM usuarios;
+	SELECT * FROM cartas;
+	SELECT * FROM decks;
+	SELECT * FROM deck_cartas;
+	SELECT * FROM deck_usuarios;
+	
+	-- Removendo tabelas (usar com cautela)
+	DROP TABLE IF EXISTS deck_usuarios;
+	DROP TABLE IF EXISTS deck_cartas;
+	DROP TABLE IF EXISTS decks;
+	DROP TABLE IF EXISTS cartas;
+	DROP TABLE IF EXISTS usuarios;
+	

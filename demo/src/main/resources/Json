@@ -1,0 +1,43 @@
+        {
+					"tipo": "esqueleto"
+		} 
+
+
+
+        {
+            "nome": "boquinha",
+            "email": "boquinhas@gmail.com",
+            "senha": "bocasboquinha",
+            "dinheiro": "500"
+        } ,
+        {
+                    "nome": "boquinha",
+                    "email": "boquinhas@gmail.com",
+                    "senha": "bocasboquinha",
+                    "dinheiro": "500"
+        }  
+
+
+
+        {
+            "id": 1,
+            "nome": "dragão",
+            "numero": 1,
+            "ataque": 3000,
+            "defesa": 2500,
+            "localImagem": "assets/imagen/dragao.jpg"
+        },	
+        {
+                    "nome": "espadachin",
+                    "numero": "02",
+                    "ataque": "3500",
+                    "defesa": "500",
+                    "localImagem": "assets/imagen/espadachin.jpg"
+        },  
+        {
+                    "nome": "cavaleiro",
+                    "numero": "03",
+                    "ataque": "2500",
+                    "defesa": "2500",
+                    "localImagem": "assets/imagen/espadachin.jpg"
+        }
