@@ -29,7 +29,7 @@ public class UserEntity implements UserDetails {
     // @Column(name = "nome")
     // private String nome;
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "nome", nullable = false)
     private String fullName;
 
     @Column(unique = true, length = 100, nullable = false)
