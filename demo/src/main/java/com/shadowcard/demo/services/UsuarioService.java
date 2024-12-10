@@ -1,6 +1,7 @@
 package com.shadowcard.demo.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,8 +70,8 @@ public class UsuarioService {
 
         // Calcular o custo total dos decks
         int totalCusto = decks.stream()
-        .mapToInt(DeckEntity::getPreco)
-        .sum();
+                .mapToInt(DeckEntity::getPreco)
+                .sum();
 
         // Verificar se o usuário tem dinheiro suficiente
         if (usuario.getDinheiro() < totalCusto) {
@@ -94,6 +95,43 @@ public class UsuarioService {
         usuario.setDinheiro(usuario.getDinheiro() - totalCusto);
 
         usuarioRepository.save(usuario);
+    }
+
+    public ShowUsuarioDTO getUsuarioById(Long id) {
+        UserEntity usuario = usuarioRepository.findById(id).orElseThrow();
+
+        ShowUsuarioDTO usuarioDTO = new ShowUsuarioDTO();
+
+        usuarioDTO.setId(usuario.getId());
+        usuarioDTO.setFullName(usuario.getFullName());
+        usuarioDTO.setEmail(usuario.getEmail());
+        usuarioDTO.setDinheiro(usuario.getDinheiro());
+        usuarioDTO.setDecks(usuario.getDecks().stream().map(deck -> deck.getId()).toList());
+
+        return usuarioDTO;
+
+    }
+
+    public boolean updateNomeUsuario(Long id, String novoNome) {
+        // Lógica para atualizar o nome do usuário
+        Optional<UserEntity> usuario = usuarioRepository.findById(id);
+        if (usuario.isPresent()) {
+            UserEntity usuarioExistente = usuario.get();
+            usuarioExistente.setFullName(novoNome);  // Atualiza o nome do usuário
+            usuarioRepository.save(usuarioExistente); // Salva a mudança
+            return true;
+        }
+        return false; // Se o usuário não for encontrado
+    }
+
+    public boolean deleteUsuario(Long id) {
+        // Lógica para excluir o usuário
+        Optional<UserEntity> usuario = usuarioRepository.findById(id);
+        if (usuario.isPresent()) {
+            usuarioRepository.delete(usuario.get()); // Exclui o usuário
+            return true;
+        }
+        return false; // Se o usuário não for encontrado
     }
 
 }
